@@ -1,33 +1,48 @@
-import React from 'react'
-import Logo from '../../../assets/logo2.png'
-import Loc from '../../../assets/loc.png'
-import Profil from '../../../assets/profile.png'
-import Logo3 from '../../../assets/logo3.png'
+import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import * as XLSX from 'xlsx';
+import SideBar from '../../../componen/SideBar';
 
 function Dashboard() {
     const navigate = useNavigate();
-    const handleUrgent = () => {
-        navigate("/urgentklik");
+    
+    
+
+      const [excelFile, setExcelFile] = useState(null);
+      const convertAndLog = () => {
+        if (excelFile) {
+            const reader = new FileReader();
+      
+            reader.onload = (e) => {
+              const data = e.target.result;
+              const workbook = XLSX.read(data, { type: 'binary' });
+              const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+              
+              // Display the JSON data in the console
+              console.log(jsonData);
+            };
+      
+    
+          reader.readAsBinaryString(excelFile);
+        } else {
+          console.log("Please choose a valid Excel file.");
+        }
       };
-      const handleHelps = () => {
-        navigate("/helpklik");
-      };
-      const handleInfo = () => {
-        navigate("/infoklik");
-      };
-      const handlesakri = () => {
-        navigate("/sakriklik");
-      };
-      const handlemap = () => {
-        navigate("/mapklik");
-      };
-      const handlenews = () => {
-        navigate("/newsklik");
-      };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setExcelFile(file);
+  };
   return (
     <div className='deflayout'>
-        <div className='headlayout'>
+        <SideBar />
+        <div>
+            <form>
+            <input type="file" onChange={handleFileChange} accept=".xlsx, .xls" />
+        <button type="button" onClick={convertAndLog}>Convert to JSON</button>
+            </form>
+        </div>
+        {/* <div className='headlayout'>
             <div><img src={Logo} /></div>
             <div className='rowlay'>
                 <img className='iconloc' src={Loc} />
@@ -72,7 +87,7 @@ function Dashboard() {
         <div className='botrow'>
             Polres Banyumas 0281622259/112<br />
             Polwil Banyumas Jl. Jend. Gatot Subroto 79. Tlp: 0281643666
-        </div>
+        </div> */}
     </div>
   )
 }
