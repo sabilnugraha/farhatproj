@@ -4,6 +4,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
 
   .App {
@@ -97,11 +99,15 @@ box-shadow:  2px 2px 6px #3ea29c,
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 12px;
-    background-color: #12326D;
-    height: 100vh;
+    padding: 50px;
+    background: linear-gradient(145deg, #3d424b, #33383f);
+    box-shadow:  12px 12px 16px #30353c,
+             -6px -6px 6px #3ea29c;
+    
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
+    border-radius: 30px;
+    
     
   }
 
@@ -164,7 +170,7 @@ box-shadow:  5px 5px 5px #075154,
     display: flex;
     justify-content: center;
     flex-direction: column;
-    gap: 48px;
+    gap: 30px;
   }
 
   .buttonauthparent {
@@ -175,13 +181,16 @@ box-shadow:  5px 5px 5px #075154,
 
   .buttonauth {
     padding: 20px;
-    background-color: #ffffff;
-    color: #12326D;
+    color: #ffffff;
+    background: linear-gradient(145deg, #3d424b, #33383f);
+    box-shadow:  6px 6px 8px #30353c,
+             -6px -6px 8px #424751;
     font-weight: bold;
     font-size: 18px;
     font-family: "Poppins", sans-serif;
     width: 150px;
-    border-radius: 7px;
+    border-radius: 30px;
+    border: #3ea29c solid;
   }
 
   .deflayout {
@@ -202,6 +211,43 @@ box-shadow:  5px 5px 5px #075154,
     flex-direction: column;
     
   }
+
+  .denied {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #f76b8a;
+box-shadow:  6px 6px 8px #30353c,
+-6px -6px 8px #424751;
+border-radius: 20px;
+color: #faf3f3;
+  }
+
+  .success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #66bfbf;
+box-shadow:  6px 6px 8px #30353c,
+-6px -6px 8px #424751;
+border-radius: 20px;
+color: #faf3f3;
+  }
+
+  .successadd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #4f81c7;
+box-shadow:  8px 8px 16px #075154,
+-8px -8px 16px #096d72;
+border-radius: 20px;
+color: #faf3f3;
+  }
+
 
   .bidpersonnel {
     display: flex;

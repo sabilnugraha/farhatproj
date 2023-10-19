@@ -15,19 +15,18 @@ import MapKlik from './user/public/pages/MapKlik';
 import LoginAdmin from './user/police/LoginAdmin';
 import { useContext, useEffect } from 'react';
 import { Usercontext } from './context/UserContext';
-import { setAuthToken } from './config/api';
+import { APILOKAL, setAuthToken } from './config/api';
 import Layout from './layout/Layout';
 
 function App() {
   const [state, dispatch] = useContext(Usercontext);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   // Redirect Auth
-  //   if (localStorage.token) {
-  //     setAuthToken(localStorage.token);
-  //   }
-
+  useEffect(() => {
+    // Redirect Auth
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }}, [state]);
   //   if (state.isLogin == false) {
   //     navigate("/");
   //   } else {
@@ -39,11 +38,46 @@ function App() {
   //     }
   //   }
   // }, [state]);
+  const checkUser = async () => {
+    try {
+      const response = await APILOKAL.get("/check-auth");
+
+      // If the token incorrect
+      if (response.status === 404) {
+        return dispatch({
+          type: "AUTH_ERROR",
+        });
+      }
+
+      // Get user data
+      let payload = response.data.data;
+      console.log(payload);
+      // Get token from local storage
+      payload.token = localStorage.token;
+
+      // Send data to useContext
+      dispatch({
+        type: "USER_SUCCESS",
+        payload,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.token) {
+      checkUser();
+    }
+  }, []);
+
+  console.log(state);
 
   return (
     <div className="App">
       <Routes>
       <Route path="/" element={<Layout />} />
+      <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
